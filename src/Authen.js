@@ -94,6 +94,36 @@ class Authen extends Component {
 
     }
 
+    google(){
+        var provider = new firebase.auth.GoogleAuthProvider();
+        var promise = firebase.auth().signInWithPopup(provider);
+
+        promise
+        .then(result => {
+            var user = result.user;
+            var msg = "Welcome "+ user.displayName;
+            this.setState({
+                err: msg
+            })
+            
+            console.log(user);
+            firebase.database().ref('users/'+user.uid).set({
+                email:user.email,
+                name: user.displayName
+            })
+        })
+
+        
+        promise.catch(e => {
+
+            var err = e.message;
+            console.log(err);
+            this.setState({err: err})
+
+        })
+
+    }
+
 
     constructor(props) {
         super(props);
@@ -103,7 +133,8 @@ class Authen extends Component {
 
         this.login = this.login.bind(this);
         this.signup = this.signup.bind(this);
-        this.logout =this.logout.bind(this);
+        this.logout = this.logout.bind(this);
+        this.google = this.google.bind(this);
 
     }
     render() { 
@@ -114,7 +145,8 @@ class Authen extends Component {
             <p>{this.state.err}</p>
             <button className="btn" onClick={this.login}>Login</button>
             <button className="btn" onClick={this.signup}>Signup</button>
-            <button id="logout" className="hide btn" onClick={this.logout}>Logout</button>
+            <button id="logout" className="hide btn" onClick={this.logout}>Logout</button><br/>
+            <button className="google" onClick={this.google}>Sign In with Google</button>
 
 
                  

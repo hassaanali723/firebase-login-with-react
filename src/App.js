@@ -12,7 +12,7 @@ class App extends Component {
       <div className="App">
         <div className="card">
      <h1>
-       Welcome
+       Signup/Login
      </h1>
      <Authen/>
      </div>

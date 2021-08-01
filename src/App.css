@@ -21,7 +21,7 @@
     border-radius: 2px;
 }
 .App h1{
-  padding-bottom: 5px;
+  padding-bottom: 15px;
     margin: 0;
 }
 
@@ -30,6 +30,7 @@
   margin: 5px;
   box-shadow: 1px 1px 1px #9c9c9c;
   border: none;
+  width: 50%;
   
 }
 
@@ -39,6 +40,14 @@
     background-color: black;
     color: white;
     border: none;
+}
+
+.google{
+  padding: 7px 30px;
+  margin: 10px 10px;
+  background-color: #dd4b39;
+  color: white;
+  border: none;
 }
 
 .App-logo {
