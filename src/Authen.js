@@ -7,16 +7,16 @@ import 'firebase/auth';
 //var firebase = require('firebase');
 
 var firebaseConfig = {
-  apiKey: "AIzaSyAYLHGXLfwDgAv3wpkXCNcdUpT27ZcDsmc",
-  authDomain: "signup-bf102.firebaseapp.com",
-  databaseURL: "https://signup-bf102-default-rtdb.firebaseio.com",
-  projectId: "signup-bf102",
-  storageBucket: "signup-bf102.appspot.com",
-  messagingSenderId: "139960247379",
-  appId: "1:139960247379:web:32529e8726e2baa4fe92a6"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+    apiKey: "AIzaSyAYLHGXLfwDgAv3wpkXCNcdUpT27ZcDsmc",
+    authDomain: "signup-bf102.firebaseapp.com",
+    databaseURL: "https://signup-bf102-default-rtdb.firebaseio.com",
+    projectId: "signup-bf102",
+    storageBucket: "signup-bf102.appspot.com",
+    messagingSenderId: "139960247379",
+    appId: "1:139960247379:web:32529e8726e2baa4fe92a6"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 
 
 class Authen extends Component {
@@ -41,13 +41,50 @@ class Authen extends Component {
         )
 
     }
+
+    signup(){
+
+        
+        const email = this.refs.email.value;
+        const pass = this.refs.password.value;
+
+        console.log(email,pass);
+
+        const auth = firebase.auth();
+        const promise = auth.createUserWithEmailAndPassword(email,pass);
+
+        promise
+        .then(user => {
+            console.log(user);
+            var err = 'Welcome ' + user.user.email;
+            console.log(err);
+            console.log(user.user.uid);
+            firebase.database().ref('users/'+user.user.uid).set({
+                email:user.user.email
+            });
+            console.log(user);
+            this.setState({err:err})
+        });
+
+        promise
+        .catch(e => {
+            var err = e.message;
+            console.log(err);
+            this.setState({err: err})
+        });
+
+    }
+
+
     constructor(props) {
         super(props);
         this.state = { 
             err: ''
          }
 
-        this.login = this.login.bind(this)
+        this.login = this.login.bind(this);
+        this.signup = this.signup.bind(this);
+
     }
     render() { 
         return ( 
@@ -56,7 +93,7 @@ class Authen extends Component {
             <input id="pass" ref="password" type="password" placeholder="Enter your password" /> <br/>
             <p>{this.state.err}</p>
             <button onClick={this.login}>Login</button>
-            <button>Signup</button>
+            <button onClick={this.signup}>Signup</button>
             <button>Logout</button>
 
 
