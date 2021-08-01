@@ -108,13 +108,13 @@ class Authen extends Component {
     }
     render() { 
         return ( 
-            <div className="App">
-            <input id="email" ref="email" type="email" placeholder="Enter your email" /> <br/>
-            <input id="pass" ref="password" type="password" placeholder="Enter your password" /> <br/>
+            <div className="main">
+            <input className="input" id="email" ref="email" type="email" placeholder="Enter your email" /> <br/>
+            <input className="input" id="pass" ref="password" type="password" placeholder="Enter your password" /> <br/>
             <p>{this.state.err}</p>
-            <button onClick={this.login}>Login</button>
-            <button onClick={this.signup}>Signup</button>
-            <button id="logout" className="hide" onClick={this.logout}>Logout</button>
+            <button className="btn" onClick={this.login}>Login</button>
+            <button className="btn" onClick={this.signup}>Signup</button>
+            <button id="logout" className="hide btn" onClick={this.logout}>Logout</button>
 
 
                  

@@ -10,10 +10,12 @@ class App extends Component {
   render() { 
     return ( 
       <div className="App">
+        <div className="card">
      <h1>
        Welcome
      </h1>
      <Authen/>
+     </div>
     </div>
      );
   }
