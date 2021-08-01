@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/database';
 import 'firebase/auth';
+import { getElementError } from '@testing-library/react';
 
 //var firebase = require('firebase');
 
@@ -30,8 +31,17 @@ class Authen extends Component {
 
         const auth = firebase.auth();
         const promise = auth.signInWithEmailAndPassword(email,pass);
+        
+        promise.then( user => {
+            var lout = document.getElementById('logout');
+            lout.classList.remove('hide');
+            var err = 'Welcome ' + user.user.email;
+            this.setState({err:err})
+    
 
-        // handling login prmomise
+
+        });
+        
         promise.catch( e=> {
             var err = e.message;
             console.log(err);
@@ -75,6 +85,15 @@ class Authen extends Component {
 
     }
 
+    logout(){
+        firebase.auth().signOut();
+        var lout = document.getElementById('logout');
+            lout.classList.add('hide');
+            var err = 'Thank for using our app ';
+            this.setState({err:err})
+
+    }
+
 
     constructor(props) {
         super(props);
@@ -84,6 +103,7 @@ class Authen extends Component {
 
         this.login = this.login.bind(this);
         this.signup = this.signup.bind(this);
+        this.logout =this.logout.bind(this);
 
     }
     render() { 
@@ -94,7 +114,7 @@ class Authen extends Component {
             <p>{this.state.err}</p>
             <button onClick={this.login}>Login</button>
             <button onClick={this.signup}>Signup</button>
-            <button>Logout</button>
+            <button id="logout" className="hide" onClick={this.logout}>Logout</button>
 
 
                  
